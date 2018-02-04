@@ -1,7 +1,7 @@
 ---
 # This playbook configures Impala cluster on EMR
 
-- name: create POD
+- name: Download Impala Data Set
   hosts: 192.168.0.120
   roles:
     - Impala
