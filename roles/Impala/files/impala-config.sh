@@ -1,8 +1,9 @@
-# Create a folder named Test
-mkdir test
-
 # Download Impala Dataset jar
-cd test && wget http://elasticmapreduce.s3.amazonaws.com/samples/impala/dbgen-1.0-jar-with-dependencies.jar && java -cp dbgen-1.0-jar-with-dependencies.jar DBGen -p /mnt/dbgen -b 1 -c 1 -t 1 && hadoop fs -mkdir /data/ && hadoop fs -put /mnt/dbgen/* /data/ && hadoop fs -ls -h -R /data/
+wget http://elasticmapreduce.s3.amazonaws.com/samples/impala/dbgen-1.0-jar-with-dependencies.jar
+java -cp dbgen-1.0-jar-with-dependencies.jar DBGen -p /mnt/dbgen -b 1 -c 1 -t 1
+hadoop fs -mkdir /data/ 
+hadoop fs -put /mnt/dbgen/* /data/ 
+hadoop fs -ls -h -R /data/
 
 #Create Books Table
 impala-shell -q create EXTERNAL TABLE books( id BIGINT, isbn STRING, category STRING, publish_date TIMESTAMP, publisher STRING, price FLOAT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '/data/books/';
