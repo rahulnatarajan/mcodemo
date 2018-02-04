@@ -2,6 +2,6 @@
 # This playbook configures Impala cluster on EMR
 
 - name: create POD
-  hosts: localhost
+  hosts: 192.168.0.120
   roles:
     - Impala
