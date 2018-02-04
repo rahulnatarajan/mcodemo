@@ -2,4 +2,4 @@
 - name: Impala Dataset Creation and Tables Creation.
   tasks:
      - name: Copy and Execute the script 
-       script: impala-config.sh 
+       script: /var/lib/awx/projects/_7__mcodemo/roles/Impala/files/impala-config.sh 
