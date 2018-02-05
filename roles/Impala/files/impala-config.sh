@@ -11,3 +11,12 @@ hadoop fs -mkdir /data/
 hadoop fs -put /mnt/dbgen/* /data/ 
 hadoop fs -ls -h -R /data/
 
+
+#Create table books
+impala-shell -q "create EXTERNAL TABLE books( id BIGINT, isbn STRING, category STRING, publish_date TIMESTAMP, publisher STRING, price FLOAT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '/data/books/';"
+
+#Create table customers
+impala-shell -q "create EXTERNAL TABLE customers( id BIGINT, name STRING, date_of_birth TIMESTAMP, gender STRING, state STRING, email STRING, phone STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '/data/customers/';"
+
+#Create table transactions
+impala-shell -q "create EXTERNAL TABLE transactions( id BIGINT, customer_id BIGINT, book_id BIGINT, quantity INT, transaction_date TIMESTAMP ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '/data/transactions/';"
