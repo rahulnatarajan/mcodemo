@@ -2,6 +2,6 @@
 # This playbook configures Impala cluster on EMR
 
 - name: Download Impala Data Set
-  hosts: 192.168.0.86
+  hosts: 192.168.0.207
   roles:
     - Impala
