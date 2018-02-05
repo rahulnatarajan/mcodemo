@@ -2,3 +2,7 @@
 - name: Impala Dataset Creation and Tables Creation.
   script: /var/lib/awx/projects/_7__mcodemo/roles/Impala/files/impala-config.sh
   ignore_errors: yes
+  register: impala_result
+  failed_when: >
+    impala_result.rc != 0 and ("already exists" not in impala_result.stderr)
+  changed_when: "impala_result.rc == 0"
