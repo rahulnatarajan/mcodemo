@@ -33,43 +33,43 @@ hadoop fs -put $datadir/$two.csv $hadoop_datasets_dir/$one/$two.csv
 
 
 # Load data to table
-if [ "$tablename" == "mco_entity_bookcode_mapping" ]; then
+if [ "$two" == "mco_entity_bookcode_mapping" ]; then
   # Special handling for tables not needing staging
   echo "Downloading create table script from s3..."
-  aws s3 cp s3://mcodemo/hive/primary/$tablename.sql $primary_table_script_dir/$tablename.sql
+  aws s3 cp s3://mcodemo/hive/primary/$two.sql $primary_table_script_dir/$two.sql
 
-  echo "Dropping table $tablename.."
-  hive -e "drop table $tablename;"
+  echo "Dropping table $two.."
+  hive -e "drop table $two;"
 
-  echo "Recreating table $tablename.."
-  hive -f $primary_table_script_dir/$tablename.sql
+  echo "Recreating table $two.."
+  hive -f $primary_table_script_dir/$two.sql
 
-  echo "Loading CSV for $tablename"
-  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE $tablename"
+  echo "Loading CSV for $two"
+  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE $two"
 else
-  echo "Downloading create table staging ${tablename}_stg from s3..."
-  aws s3 cp s3://mcodemo/hive/staging/${tablename}_stg.sql $staging_table_script_dir/${tablename}_stg.sql
+  echo "Downloading create table staging ${two}_stg from s3..."
+  aws s3 cp s3://mcodemo/hive/staging/${two}_stg.sql $staging_table_script_dir/${two}_stg.sql
 
-  echo "Dropping table ${tablename}_staging.."
-  hive -e "drop table ${tablename}_staging;"
+  echo "Dropping table ${two}_staging.."
+  hive -e "drop table ${two}_staging;"
 
-  echo "Recreating table ${tablename}_staging.."
-  hive -f $staging_table_script_dir/${tablename}_stg.sql
+  echo "Recreating table ${two}_staging.."
+  hive -f $staging_table_script_dir/${two}_stg.sql
 
-  echo "Loading CSV for ${tablename}_staging"
-  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE ${tablename}_staging"
+  echo "Loading CSV for ${two}_staging"
+  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE ${two}_staging"
 
   echo "Downloading create table script from s3..."
-  aws s3 cp s3://mcodemo/hive/primary/$tablename.sql $primary_table_script_dir/$tablename.sql
+  aws s3 cp s3://mcodemo/hive/primary/$two.sql $primary_table_script_dir/$two.sql
 
-  echo "Dropping table $tablename.."
-  hive -e "drop table $tablename;"
+  echo "Dropping table $two.."
+  hive -e "drop table $two;"
 
-  echo "Recreating table $tablename.."
-  hive -f $primary_table_script_dir/$tablename.sql
+  echo "Recreating table $two.."
+  hive -f $primary_table_script_dir/$two.sql
 
   echo "Downloading staging to primary migration script"
-  aws s3 cp s3://mcodemo/hive/stg2primary/${tablename}_stg2prim.hql $stg2prim/${tablename}.hql
+  aws s3 cp s3://mcodemo/hive/stg2primary/${two}_stg2prim.hql $stg2prim/${two}.hql
 
-  hive -f $stg2prim/${tablename}.hql
+  hive -f $stg2prim/${two}.hql
 fi
