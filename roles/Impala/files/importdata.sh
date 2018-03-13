@@ -1,9 +1,9 @@
 #!/bin/bash
 
-timekey=2017-10-31
-tablename=mv_mco_account
+one=2017-10-31
+two=mv_mco_account
 
-datadir=/mnt/mcodemo/data/$1
+datadir=/mnt/mcodemo/data/$one
 primary_table_script_dir=/mnt/mcodemo/data/hive/primary
 staging_table_script_dir=/mnt/mcodemo/data/hive/staging
 hadoop_datasets_dir=/mcodemo/datasets
@@ -15,7 +15,7 @@ fi
 
 # Download from s3
 echo "Downloading dataset from s3..."
-aws s3 cp s3://mcodemo/datasets/$1/$2.csv $datadir/$1/$2.csv
+aws s3 cp s3://mcodemo/datasets/$one/$two.csv $datadir/$two.csv
 
 # Check if datasets directory exists
 echo "Ensuring data directory exists in hdfs..."
@@ -25,11 +25,11 @@ if [ $? != 0 ]; then
 fi
 
 # Ensure that directory for the timekey is created
-hadoop fs -mkdir -p $hadoop_datasets_dir/$1
+hadoop fs -mkdir -p $hadoop_datasets_dir/$one
 
 # Import to hdfs
 echo "Importing data set to hdfs..."
-hadoop fs -put $datadir/$1/$2.csv $hadoop_datasets_dir/$1/$2.csv
+hadoop fs -put $datadir/$two.csv $hadoop_datasets_dir/$one/$two.csv
 
 
 # Load data to table
@@ -45,7 +45,7 @@ if [ "$tablename" == "mco_entity_bookcode_mapping" ]; then
   hive -f $primary_table_script_dir/$tablename.sql
 
   echo "Loading CSV for $tablename"
-  hive -e "load data inpath '$hadoop_datasets_dir/$1/$2.csv' INTO TABLE $tablename"
+  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE $tablename"
 else
   echo "Downloading create table staging ${tablename}_stg from s3..."
   aws s3 cp s3://mcodemo/hive/staging/${tablename}_stg.sql $staging_table_script_dir/${tablename}_stg.sql
@@ -57,7 +57,7 @@ else
   hive -f $staging_table_script_dir/${tablename}_stg.sql
 
   echo "Loading CSV for ${tablename}_staging"
-  hive -e "load data inpath '$hadoop_datasets_dir/$1/$2.csv' INTO TABLE ${tablename}_staging"
+  hive -e "load data inpath '$hadoop_datasets_dir/$one/$two.csv' INTO TABLE ${tablename}_staging"
 
   echo "Downloading create table script from s3..."
   aws s3 cp s3://mcodemo/hive/primary/$tablename.sql $primary_table_script_dir/$tablename.sql
