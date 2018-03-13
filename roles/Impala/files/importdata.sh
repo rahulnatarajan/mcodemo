@@ -1,5 +1,5 @@
-timekey=$1
-tablename=$2
+timekey=2017-10-31
+tablename=mv_mco_account
 
 datadir=/mnt/mcodemo/data/$1
 primary_table_script_dir=/mnt/mcodemo/data/hive/primary
