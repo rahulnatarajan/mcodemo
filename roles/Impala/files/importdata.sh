@@ -1,5 +1,3 @@
-#!/bin/bash
-
 timekey=$1
 tablename=$2
 
