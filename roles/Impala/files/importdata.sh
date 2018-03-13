@@ -1,3 +1,5 @@
+#!/bin/bash
+
 timekey=2017-10-31
 tablename=mv_mco_account
 
