@@ -5,6 +5,7 @@ two=mv_mco_account
 
 datadir=/mnt/mcodemo/data/$one
 primary_table_script_dir=/mnt/mcodemo/data/hive/primary
+stg2prim=/mnt/mcodemo/data/hive/stg2prim
 staging_table_script_dir=/mnt/mcodemo/data/hive/staging
 hadoop_datasets_dir=/mcodemo/datasets
 
