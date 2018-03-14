@@ -3,8 +3,5 @@
 
 - name: Download Impala Data Set
   hosts: all
-  vars:
-    timekey: "{{ timekey }}"
-    tablename: "{{ tablename }}"
   roles:
     - Impala
