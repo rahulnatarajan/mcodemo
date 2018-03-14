@@ -1,6 +1,6 @@
 ---
 - name: Impala Dataset Creation and Tables Creation.
-  script: /var/lib/awx/projects/_7__mcodemo/roles/Impala/files/importdata.sh
+  script: /var/lib/awx/projects/_7__mcodemo/roles/Impala/files/importdata.sh {{ timekey }} {{ tablename }}
   ignore_errors: yes
   register: impala_result
   failed_when: >
