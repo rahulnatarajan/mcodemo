@@ -1,0 +1,7 @@
+---
+# This playbook configures Impala cluster on EMR
+
+- name: Download Impala Data Set
+  hosts: all
+  roles:
+    - presto

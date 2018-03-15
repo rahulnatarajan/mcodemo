@@ -1,0 +1,4 @@
+---
+- name: Spark report generation
+  script: /var/lib/awx/projects/_7__mcodemo/roles/spark/files/use-spark.sh "{{ timekey }}" "{{ reportname }}"
+  ignore_errors: yes

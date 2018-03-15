@@ -1,0 +1,4 @@
+---
+- name: Presto report generation
+  script: /var/lib/awx/projects/_7__mcodemo/roles/presto/files/use-presto.sh "{{ timekey }}" "{{ reportname }}"
+  ignore_errors: yes

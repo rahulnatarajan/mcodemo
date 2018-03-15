@@ -1,0 +1,4 @@
+---
+- name: Hive Report Generation
+  script: /var/lib/awx/projects/_7__mcodemo/roles/hive/files/use-hive.sh "{{ timekey }}" "{{ reportname }}"
+  ignore_errors: yes
